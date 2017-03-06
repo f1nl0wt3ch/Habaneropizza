@@ -119,7 +119,7 @@ public class AikaPalveluServlet extends HttpServlet {
 		for(int i=0; i < listNimi.size(); i++) {
 			maara = listMaara.get(i);
 			pizzan_nimi = listNimi.get(i);
-			if(dbh.connectDatabase()){
+			if(dbh.connectDatabase() != null){
 				hinta = dbh.otaPizzanHinta(pizzan_nimi);
 				yhteensa = ( Double ) hinta*maara;
 				sum.add(yhteensa);
@@ -142,7 +142,7 @@ public class AikaPalveluServlet extends HttpServlet {
 		List<Integer> ListMaara = new ArrayList<Integer>();
 		List<String> ListNimi, ListNimiNew = new ArrayList<String>();
 		
-	       if(dbh.connectDatabase()){
+	       if(dbh.connectDatabase() != null){
 			ListNimi = dbh.otaTiedotSarake("pizzan_nimi", "pizzat");
 			
 			for(int i=0; i< ListNimi.size(); i++) {

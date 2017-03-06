@@ -70,7 +70,7 @@ public class PaivitaPizzaTietoServlet extends HttpServlet {
 			int pizzaId = Integer.parseInt(request.getParameter("pizzaId"));
 			
 			pizza = new Pizza(pizzaId,inputStr,inputStr,0,null);
-			if(dbh.connectDatabase())
+			if(dbh.connectDatabase()!= null)
 			 dbh.paivitaTiedot(pizza, valinta);
 			// onAuki = dbh.Sulje();
 			
@@ -85,7 +85,7 @@ public class PaivitaPizzaTietoServlet extends HttpServlet {
 				inputDate = sdf.parse(inputStr);
 				java.sql.Date dateDB = new java.sql.Date(inputDate.getTime());
 				pizza = new Pizza(pizzaId,null,null,0,dateDB);
-				if(dbh.connectDatabase())
+				if(dbh.connectDatabase()!= null)
 				dbh.paivitaTiedot(pizza, valinta);
 				//onAuki = dbh.Sulje();
 			} catch (ParseException e) {
@@ -101,7 +101,7 @@ public class PaivitaPizzaTietoServlet extends HttpServlet {
 			int valinta = Integer.parseInt(request.getParameter("numero"));
 			int pizzaId = Integer.parseInt(request.getParameter("pizzaId"));
 			pizza = new Pizza(pizzaId,null,null,inputDouble,null);
-			if(dbh.connectDatabase())
+			if(dbh.connectDatabase()!= null)
 			dbh.paivitaTiedot(pizza, valinta);
 			//onAuki = dbh.Sulje();
 			

@@ -56,7 +56,7 @@ public class KirjauduSisaanServlet extends HttpServlet {
 		
 		session.setAttribute("username",user);
 		
-		if(dbh.connectDatabase()){
+		if(dbh.connectDatabase()!= null){
 			passSql = dbh.tarkistaTiedot(user, "kayttajat");
 			if (pass.equals(passSql)) {
 				

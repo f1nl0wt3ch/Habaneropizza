@@ -121,7 +121,7 @@ public class SaadaTilausServlet extends HttpServlet {
 	    	request.getRequestDispatcher("errorNull.jsp").forward(request, response); 	
 		else if (puhelinnumeroStr.matches(REGEX_PUHNUMERO) && spostiosoite.matches(REGEX_EMAIL) && nimi.matches(REGEX_NIMI)) 
     	{
-    		if(dbh.connectDatabase()) {
+    		if(dbh.connectDatabase()!= null) {
 				 int puhelinnumero = Integer.parseInt(puhelinnumeroStr);
 				 asiakas = new Asiakas(0, nimi,puhelinnumero, spostiosoite);
 				 historia = new HistoriaTilaus(tilausnumero,maara,maksut,maksutapa,spostiosoite,tilauspaiva);

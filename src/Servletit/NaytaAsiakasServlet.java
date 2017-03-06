@@ -58,7 +58,7 @@ public class NaytaAsiakasServlet extends HttpServlet {
 	 */
 	private void naytaAsiakasLista(HttpServletRequest request,HttpServletResponse response) {
 		try{
-		if(dbc.connectDatabase()){
+		if(dbc.connectDatabase()!= null){
 		    
 			list = dbc.getAsiakkaat("asiakkaat");
 			//istunto = request.getSession(true);

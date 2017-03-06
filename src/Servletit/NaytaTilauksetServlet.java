@@ -46,7 +46,7 @@ public class NaytaTilauksetServlet extends HttpServlet {
 	    System.out.print(action);
 		if(action.equalsIgnoreCase("Nayta kaikki tilaukset")) 
 			    naytaKaikki(request, response);
-	    else if(action.equalsIgnoreCase("Nayta viisi lahitilausta")) 
+	    else if(action.equalsIgnoreCase("Nayta viisi lahintilausta")) 
 		        naytaViisiTilausta(request, response);
 	    else
 	    	    request.getRequestDispatcher("error.jsp").forward(request, response);
@@ -61,7 +61,7 @@ public class NaytaTilauksetServlet extends HttpServlet {
 	 */
   private void naytaKaikki(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			if(dbh.connectDatabase()){
+			if(dbh.connectDatabase()!= null){
 				tilauslista = dbh.jarjestaTaulukko("tilaukset", "tilauspaiva");
 				request.setAttribute("tilauslista", tilauslista);
 				request.getRequestDispatcher("admin.jsp").forward(request, response);
@@ -86,7 +86,7 @@ public class NaytaTilauksetServlet extends HttpServlet {
 	 */
 	private void naytaViisiTilausta(HttpServletRequest request, HttpServletResponse response){
 	    	   try {
-				if(dbh.connectDatabase()){
+				if(dbh.connectDatabase()!= null){
 						tilauslista = dbh.getLimitTilaukset("tilaukset", 5);
 						request.setAttribute("tilauslista", tilauslista);
 						request.getRequestDispatcher("admin.jsp").forward(request, response);}

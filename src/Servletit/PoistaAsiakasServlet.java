@@ -69,7 +69,7 @@ public class PoistaAsiakasServlet extends HttpServlet {
 		else {
 		
 		   try {
-			if(dbh.connectDatabase()) {
+			if(dbh.connectDatabase()!= null) {
 				int asiakas_id = Integer.parseInt(asiakasIdStr);
 				dbh.poistaaAsiakas(asiakas_id);
 				request.getRequestDispatcher("admin.jsp").forward(request, response);

@@ -68,7 +68,7 @@ public class LisaaPizzaServlet extends HttpServlet {
 		   java.sql.Date dateDB = new java.sql.Date(date.getTime());
 		
 		   try {
-			   if(dbh.connectDatabase()){
+			   if(dbh.connectDatabase()!= null){
 				   Pizza pizza = new Pizza(0, nimi, taytteet, hinta, dateDB);
 				   dbh.lisaaPizzat(pizza);
 				   }

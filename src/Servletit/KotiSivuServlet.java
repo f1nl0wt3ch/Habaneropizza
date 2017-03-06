@@ -1,9 +1,7 @@
 package Servletit;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
-
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -52,7 +50,7 @@ public class KotiSivuServlet extends HttpServlet {
 	 */
 	private void naytaPizzaLista(HttpServletRequest request, HttpServletResponse response) {
 		try {
-                if(dbh.connectDatabase()){
+                if(dbh.connectDatabase()!= null){
 		    list = dbh.getPizzat("pizzat");
 			request.setAttribute("pizzaLista", list);
 			request.getRequestDispatcher("index.jsp").forward(request, response);

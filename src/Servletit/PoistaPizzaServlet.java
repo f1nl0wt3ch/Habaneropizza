@@ -60,7 +60,7 @@ public class PoistaPizzaServlet extends HttpServlet {
 		else  {
 		int pizza_id = Integer.parseInt(pizzaIdStr);
 		 try {
-				if(dbh.connectDatabase()){
+				if(dbh.connectDatabase()!= null){
 					dbh.poistaaPizza(pizza_id);
 					request.getRequestDispatcher("admin.jsp").forward(request, response);} 
 			}

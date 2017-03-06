@@ -50,7 +50,7 @@ public class NaytaPizzaServlet extends HttpServlet {
 	public void naytaPizzaLista(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		try {
-			if(dbc.connectDatabase()){
+			if(dbc.connectDatabase()!= null){
 				list = dbc.getPizzat("pizzat");
 				request.setAttribute("pizzaLista", list);
 				request.getRequestDispatcher("admin.jsp").forward(request, response);

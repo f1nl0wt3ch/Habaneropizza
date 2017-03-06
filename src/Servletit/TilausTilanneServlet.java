@@ -65,7 +65,7 @@ public class TilausTilanneServlet extends HttpServlet {
 		int ordernumber;
 		
 		String REGEX_ORDERNUMBER ="\\d{6}";
-		String REGEX_EMAIL = "\\w.+[@]\\w+[.][A-ZÅÄÖa-zåäö-]{2,3}";
+		String REGEX_EMAIL = "\\w.+[@]\\w+[.][A-ZÅÄÖa-zåäö-]{2,30}";
 		if (keyword.equals("")) {
 			response.sendRedirect("errorNull.jsp");
 			
@@ -74,19 +74,18 @@ public class TilausTilanneServlet extends HttpServlet {
 		else {
 			if(keyword.matches(REGEX_ORDERNUMBER)) {
 			ordernumber = Integer.parseInt(keyword);
-			if(dbh.connectDatabase()) {
+			if(dbh.connectDatabase()!= null) {
 				historia = dbh.tarkistaTilausTilanne(ordernumber);
 				if(historia.getTilausNo() == 0)
 					request.getRequestDispatcher("errorData.jsp").forward(request, response);
 				else {
 				session.setAttribute("historiatilaus", historia);
 				request.getRequestDispatcher("orderDetail.jsp").forward(request, response);
-				
 			}
 		}
 	}
 		else if( keyword.matches(REGEX_EMAIL)) {
-			 if(dbh.connectDatabase()){
+			 if(dbh.connectDatabase()!= null){
 				 lista = dbh.tarkistaTilausTilanne(keyword);
 				 if(lista.size() == 0)
 					 request.getRequestDispatcher("errorData.jsp").forward(request, response);

@@ -12,7 +12,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <title>Admin page</title>
 </head>
 <body>
@@ -24,64 +24,81 @@
 		<a class="btn btn-primary" href="KotiSivuServlet">Home</a>
 	</div>
 
-	<div class="container">
-	  <nav class="nav navbar-success navbar-left">
-		<form class="form" action="NaytaTilauksetServlet" method="post">
+<div class="container">
+    <div class="row">
+        <form class="form" action="NaytaTilauksetServlet" method="post">
 			<div class="form-group">
-				<input type="submit" class="btn btn-default"
-					value="Nayta kaikki tilaukset" name="action" />
+			    <div class="col-md-3">
+			        <input type="submit" class="form-control btn btn-default" value="Nayta kaikki tilaukset" name="action" />
+			    </div>
 			</div>
 			<div class="form-group">
-				<input type="submit" class="btn btn-primary"
-					value="Nayta viisi lahitilausta" name="action" />
+			    <div class="col-md-3">
+			        <input type="submit" class="form-control btn btn-default" value="Nayta viisi lahintilausta" name="action" />
+			    </div>
 			</div>
 		</form>
 		<form class="form" action="NaytaAsiakasServlet" method="get">
-			<div class="form-group">
-				<input type="submit" class="btn btn-success"
-					value="Näytä Asiakaslista">
+		    <div class="form-group">
+			    <div class="col-md-3">
+			        <input type="submit" class="form-control btn btn-default" value="Näytä Asiakaslista">
+			    </div>
 			</div>
 		</form>
 		<form class="form" action="NaytaPizzaServlet" method="get">
-			<div class="form-group">
-				<input type="submit" class="btn btn-warning"
-					value="Näytä Pizzalista">
+		    <div class="form-group">
+			    <div class="col-md-3">
+			        <input type="submit" class="form-control btn btn-default" value="Näytä Pizzalista">
+			    </div>
 			</div>
 		</form>
-	</nav>
+    </div>
+</div><!-- container navbar -->
 
-		<table class="table">
-			<tr>
-				<th>Tilausnumero</th>
-				<th>Määrä</th>
-				<th>Yhteensä</th>
-				<th>Maksutapa</th>
-				<th>Sähköposti</th>
-				<th>Tilauspäivä</th>
-			</tr>
-			<c:forEach var="tilaus" items="${tilauslista }">
-				<tr>
-					<td><c:out value="${tilaus.tilausNo}" /></td>
-					<td><c:out value="${tilaus.maara}" /></td>
-					<td><c:out value="${tilaus.maksut} " />€</td>
-					<td><c:out value="${tilaus.maksutapa}" /></td>
-					<td><c:out value="${tilaus.spostiosoite}" /></td>
-					<td><c:out value="${tilaus.tilauspaiva}" /></td>
-				</tr>
+<div id="tilaus" style="display: none">
+    <div class="container">
+       <div class="row">
+           <table class="table">
+               <thead>
+                  <tr>
+				    <th>Tilausnumero</th>
+				    <th>Määrä</th>
+				    <th>Yhteensä</th>
+				    <th>Maksutapa</th>
+				    <th>Sähköposti</th>
+				    <th>Tilauspäivä</th>
+			      </tr>
+               </thead>
+					<tbody>
+						<c:forEach var="tilaus" items="${tilauslista }">
+							<tr>
+								<td><c:out value="${tilaus.tilausNo}" /></td>
+								<td><c:out value="${tilaus.maara}" /></td>
+								<td><c:out value="${tilaus.maksut} " />€</td>
+								<td><c:out value="${tilaus.maksutapa}" /></td>
+								<td><c:out value="${tilaus.spostiosoite}" /></td>
+								<td><c:out value="${tilaus.tilauspaiva}" /></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+			</div>
+    </div>   
+</div>
 
-			</c:forEach>
-
-
-
-
-			<table class="table">
-				<tr>
+<div id="asiakas">
+   <div class="container">
+       <div class="row">
+          <table class="table">
+              <thead>
+                 <tr>
 					<th>Id</th>
 					<th>Nimi</th>
 					<th>Puhelin</th>
 					<th>Sähköposti</th>
-				</tr>
-				<c:forEach var="asiakas" items="${asiakasLista}">
+				 </tr>
+              </thead>
+			  <tbody>
+			     <c:forEach var="asiakas" items="${asiakasLista}">
 					<tr>
 						<td>${asiakas.asiakas_id}</td>
 						<td><c:out value="${asiakas.nimi}" /></td>
@@ -89,124 +106,132 @@
 						<td><c:out value="${asiakas.spostiosoite}" /></td>
 					</tr>
 				</c:forEach>
+			  </tbody>
 			</table>
-
-
-			<br>
-			<form action="PoistaAsiakasServlet" method="get">
-
-				Asiakkaan id: <input type="text" value="" name="poistettuID"
-					style="width: 30px"><input type="submit" value="Poista">
-			</form>
-
-
-			<br>
-			<table class="table">
-				<tr>
-
-					<th>Id</th>
-					<th>Nimi</th>
-					<th>Hinta</th>
-					<th>Täytteet</th>
-					<th>Poistomerkitty</th>
-				</tr>
-
-				<c:forEach var="pizza" items="${pizzaLista}">
+       </div><!-- näytä asiakkaat -->
+       <div class="row">
+            <div class="col-md-6">
+                 <form action="PoistaAsiakasServlet" method="get">
+                      <div class="form-inline">
+                           <label>Asiakkaan id</label>
+                           <input type="text" class="form-control" name="poistettuID" />
+                           <input type="submit" class="btn btn-warning" value="Poista">
+                      </div>
+			    </form>
+            </div>
+            <div class="col-md-6"></div>
+       </div><!-- poista asiakkaan -->
+     </div><!-- container asiakas-->
+</div><!-- asiakas -->
+<div id="pizza">
+ <div class="container">  
+    <div class="row">
+        <table class="table">
+				<thead>
 					<tr>
-						<td><c:out value="${pizza.pizza_id}" /></td>
-						<td><c:out value="${pizza.pizzan_nimi}" /></td>
-						<td><c:out value="${pizza.hinta}" /></td>
-						<td><c:out value="${pizza.taytteet}" /></td>
-						<td><c:out value="${pizza.poistomerkitty}" /></td>
-
+						<th>Id</th>
+						<th>Nimi</th>
+						<th>Hinta</th>
+						<th>Täytteet</th>
+						<th>Poistomerkitty</th>
 					</tr>
-				</c:forEach>
+				</thead>
+				<tbody>
+					<c:forEach var="pizza" items="${pizzaLista}">
+						<tr>
+							<td><c:out value="${pizza.pizza_id}" /></td>
+							<td><c:out value="${pizza.pizzan_nimi}" /></td>
+							<td><c:out value="${pizza.hinta}" /></td>
+							<td><c:out value="${pizza.taytteet}" /></td>
+							<td><c:out value="${pizza.poistomerkitty}" /></td>
+						</tr>
+					</c:forEach>
+				</tbody>
 			</table>
-
-
-			<form action="PoistaPizzaServlet" method="get">
-				Pizzan id: <input type="text" value="" name="pizzaId"
-					style="width: 30px"><input type="submit" value="Poista">
+    </div>
+    <div class="row">
+         <div class="col-md-6">
+              	<form class="form" action="PoistaPizzaServlet" method="get">
+						<div class="form-inline">
+								<label class="text-right">Pizzan id</label>
+								<input type="text" class="form-control" name="pizzaId" />
+								<input type="submit" class="btn btn-warning text-left" value="Poista">
+					    </div>
+			     </form>
+         </div>
+         <div class="col-md-6"></div>
+            </div>
+	<div class="row">
+	    <div class="col-md-6">
+	         <form action="PaivitaPizzaTietoServlet" method="post">
+						<legend>*Päivitä pizzan tiedot</legend>
+						<div class="form-group">
+							<label>Kumppi tieto haluat päivittää, valitse ala numero?</label>
+							<label>1.Nimi 2.Täytteet 3.Hinta 4.Poistomerkitty</label> <input
+								type="text" class="form-control" name="numero" />
+						</div>
+						<div class="form-group">
+							<label>Pizzan id</label> <input type="text" class="form-control"
+								name="pizzaId" />
+						</div>
+						<div class="form-group">
+							<label>Tiedot</label> <input type="text" class="form-control"
+								name="input" />
+						</div>
+						<div class="form-group">
+							<label></label> <input type="submit" class="btn btn-primary"
+								value="Päivitä">
+						</div>
 			</form>
-			<br>
-			<br>
-			<form action="PaivitaPizzaTietoServlet" method="post">
-				<FIELDSET style="width: 668px">
-					<LEGEND>
-						<h3>Päivitä pizzan tiedot</h3>
-					</LEGEND>
-
-					<table>
-						<tr>
-							<td>Kumppi tieto haluat päivittää, valitse ala numero? <br>
-							<br></td>
-						</tr>
-						<tr>
-							<td>1.Nimi 2.Täytteet 3.Hinta 4.Poistomerkitty</td>
-							<td><input type="text" value="" name="numero"
-								style="width: 50px"></td>
-						</tr>
-
-						<tr>
-							<td>Pizzan id:</td>
-							<td><input type="text" value="" name="pizzaId"
-								style="width: 50px"></td>
-						</tr>
-						<tr>
-							<td>Tiedot:</td>
-							<td><input type="text" value="" name="input"
-								style="width: 300px"></td>
-						</tr>
-
-						<tr>
-							<td></td>
-							<td><input type="submit" value="Päivitä"></td>
-						</tr>
-
-					</table>
-				</FIELDSET>
-			</form>
-			<br>
-			<br>
-			<form action="LisaaPizzaServlet" method="post">
-				<fieldset style="width: 668px">
-					<LEGEND>
-						<h3>Lisää uusi pizza listaan</h3>
-					</LEGEND>
-					<table border="0" cellpadding="2" cellspacing="2">
-						<tr>
-							<td>Pizza nimi:</td>
-							<td><input type="text" value="" name="name"
-								style="width: 100px"></td>
-						</tr>
-
-						<tr>
-							<td>Hinta:</td>
-							<td><input type="text" value="" name="price"
-								style="width: 30px"></td>
-						</tr>
-
-						<tr>
-							<td>Täytteet:</td>
-							<td><input type="text" value="" name="details"
-								style="width: 300px"></td>
-						</tr>
-
-						<tr>
-							<td>Poistomerkitty (yyyy-MM-dd):</td>
-							<td><input type="text" value="" name="date"
-								style="width: 200px"></td>
-						</tr>
-
-						<tr>
-							<td></td>
-							<td><input type="submit" value="Lisää uusi pizza"
-								style="align: center" style="height:50px; width:120px"></td>
-						</tr>
-					</table>
-				</fieldset>
-			</form>
-			</div>
+	    </div><!-- päivittä pizza -->
+	    <div class="col-md-6">
+	         			<form class="form" action="LisaaPizzaServlet" method="post">
+						<legend>*Lisää uusi pizza listaan</legend>
+						<div class="form-group">
+							<label>Pizza nimi</label> <input type="text" class="form-control"
+								name="name">
+						</div>
+						<div class="form-group">
+							<label>Hinta</label> <input type="text" class="form-control"
+								name="price">
+						</div>
+						<div class="form-group">
+							<label>Täytteet</label> <input type="text" class="form-control" name="details">
+						</div>
+						<div class="form-group">
+							<label>Poistomerkitty (yyyy-MM-dd)</label> <input type="text" id="datepicker" class="form-control" name="date">
+						</div>
+						<div class="form-group">
+							<label></label> <input type="submit" class="btn btn-primary"
+								value="Lisää uusi pizza">
+						</div>
+			 </form>
+	    </div><!-- Lisää uusi pizza  -->	
+	   </div>
+	</div><!-- container pizza -->
+</div><!-- pizza -->
 </body>
 <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+   $(function(event){
+	   $("#asiakas").hide();
+	   //$("#tilaus").hide();
+	   $("#pizza").hide();
+	   $( "#datepicker" ).datepicker({
+		 "dateFormat": "yy-mm-dd" 
+	   });
+	   
+	   $(':input[name="action"]').on("click", function(){
+		   $("#tilaus").css({display: " "});
+	   });
+	   $(':input[value="Näytä Asiakaslista"]').on("click", function(){
+		   $("#asiakas").css("display","");
+	   });
+	   $(':input[value="Näytä Pizzalista"]').on("click", function(){
+		   $("#pizza").css("display","");
+	   });
+	   
+   })
+</script>
 </html>
