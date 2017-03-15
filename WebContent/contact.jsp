@@ -17,7 +17,7 @@
 		<h2>Pizzoja saatavilla klo 10-23</h2>
 		<h3>Malmin parhaat pizzat</h3>
 		<h4>Soita 050-654-3210 ja nouda pizza paikan päältä</h4>
-		<a class="btn btn-primary" href="KotiSivuServlet">Home</a>
+		<a class="btn btn-primary" href="/index">Home</a>
 </div>
  <div class="container">
 <form class="form" action="LahettaSpostiServlet" method="post">

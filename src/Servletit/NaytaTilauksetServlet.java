@@ -16,7 +16,7 @@ import DBHoitaja.DBHoitaja;
 /**
  * Servlet implementation class NaytaTilauksetServlet
  */
-@WebServlet("/NaytaTilauksetServlet")
+@WebServlet("/orders")
 public class NaytaTilauksetServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     DBHoitaja dbh;

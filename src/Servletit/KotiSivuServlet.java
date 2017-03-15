@@ -16,7 +16,7 @@ import Luokat.Pizza;
 /**
  * Servlet implementation class KotiSivuServlet
  */
-@WebServlet("/home")
+@WebServlet("/index")
 public class KotiSivuServlet extends HttpServlet { 
 	private static final long serialVersionUID = 1L;
     DBHoitaja dbh;

@@ -22,7 +22,7 @@ import Luokat.Asiakas;
 /**
  * Servlet implementation class NaytaAsiakasServlet
  */
-@WebServlet("/NaytaAsiakasServlet")
+@WebServlet("/customers")
 public class NaytaAsiakasServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	 ArrayList<Asiakas> list ;

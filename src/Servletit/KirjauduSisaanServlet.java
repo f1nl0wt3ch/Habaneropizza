@@ -13,7 +13,7 @@ import DBHoitaja.DBHoitaja;
 /**
  * Servlet implementation class KirjauduSisaanServlet
  */
-@WebServlet("/KirjauduSisaanServlet")
+@WebServlet("/login")
 public class KirjauduSisaanServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
      DBHoitaja dbh;  
@@ -28,10 +28,13 @@ public class KirjauduSisaanServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		if(tarkistaTiedot(request, response))
-			
 			request.getRequestDispatcher("admin.jsp").forward(request, response);
 		else
 			request.getRequestDispatcher("backlogin.jsp").forward(request, response);
@@ -47,23 +50,17 @@ public class KirjauduSisaanServlet extends HttpServlet {
 	 * @return true tai false
 	 */
 	public boolean tarkistaTiedot(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		boolean paluu = false;
-		String passSql;
+		boolean paluu = true;
 		HttpSession session = request.getSession();
 		session.setMaxInactiveInterval(900);
 	    String user = request.getParameter("username");
 		String pass = request.getParameter("password");
-		
+		System.out.println(user+" "+pass);
 		session.setAttribute("username",user);
-		
 		if(dbh.connectDatabase()!= null){
-			passSql = dbh.tarkistaTiedot(user, "kayttajat");
-			if (pass.equals(passSql)) {
-				
-			    paluu= true; }
-			else
-	            paluu= false;
+			paluu = (dbh.tarkistaTiedot(user, pass) == 0)? false : true;
 		}
 		return paluu;
+		
    }
 }

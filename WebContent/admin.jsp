@@ -21,12 +21,12 @@
 		<h2>Pizzoja saatavilla klo 10-23</h2>
 		<h3>Malmin parhaat pizzat</h3>
 		<h4>Soita 050-654-3210 ja nouda pizza paikan päältä</h4>
-		<a class="btn btn-primary" href="KotiSivuServlet">Home</a>
+		<a class="btn btn-primary" href="/index">Home</a>
 	</div>
 
 <div class="container">
     <div class="row">
-        <form class="form" action="NaytaTilauksetServlet" method="post">
+        <form class="form" action="orders" method="post">
 			<div class="form-group">
 			    <div class="col-md-3">
 			        <input type="submit" class="form-control btn btn-default" value="Nayta kaikki tilaukset" name="action" />
@@ -38,14 +38,14 @@
 			    </div>
 			</div>
 		</form>
-		<form class="form" action="NaytaAsiakasServlet" method="get">
+		<form class="form" action="customers" method="get">
 		    <div class="form-group">
 			    <div class="col-md-3">
 			        <input type="submit" class="form-control btn btn-default" value="Näytä Asiakaslista">
 			    </div>
 			</div>
 		</form>
-		<form class="form" action="NaytaPizzaServlet" method="get">
+		<form class="form" action="pizzas" method="get">
 		    <div class="form-group">
 			    <div class="col-md-3">
 			        <input type="submit" class="form-control btn btn-default" value="Näytä Pizzalista">
@@ -55,10 +55,10 @@
     </div>
 </div><!-- container navbar -->
 
-<div id="tilaus" style="display: none">
-    <div class="container">
-       <div class="row">
-           <table class="table">
+<div class="container">
+       <div class="row tilaus">
+           <div class="col-md-12">
+             <table class="table">
                <thead>
                   <tr>
 				    <th>Tilausnumero</th>
@@ -81,13 +81,13 @@
 							</tr>
 						</c:forEach>
 					</tbody>
-			</div>
-    </div>   
-</div>
+		      </table>
+		  </div><!-- col-md-12 -->
+	 </div><!-- row -->
+</div> <!-- container tilaus -->  
 
-<div id="asiakas">
-   <div class="container">
-       <div class="row">
+<div class="container">
+       <div class="row asiakas">
           <table class="table">
               <thead>
                  <tr>
@@ -109,9 +109,9 @@
 			  </tbody>
 			</table>
        </div><!-- näytä asiakkaat -->
-       <div class="row">
+       <div class="row asiakas">
             <div class="col-md-6">
-                 <form action="PoistaAsiakasServlet" method="get">
+                 <form action="deletecustomer" method="get">
                       <div class="form-inline">
                            <label>Asiakkaan id</label>
                            <input type="text" class="form-control" name="poistettuID" />
@@ -121,11 +121,10 @@
             </div>
             <div class="col-md-6"></div>
        </div><!-- poista asiakkaan -->
-     </div><!-- container asiakas-->
-</div><!-- asiakas -->
-<div id="pizza">
- <div class="container">  
-    <div class="row">
+</div><!-- container asiakas-->
+
+<div class="container">  
+    <div class="row pizza">
         <table class="table">
 				<thead>
 					<tr>
@@ -148,10 +147,10 @@
 					</c:forEach>
 				</tbody>
 			</table>
-    </div>
-    <div class="row">
+    </div><!-- row 1 -->
+    <div class="row pizza">
          <div class="col-md-6">
-              	<form class="form" action="PoistaPizzaServlet" method="get">
+              	<form class="form" action="deletepizza" method="get">
 						<div class="form-inline">
 								<label class="text-right">Pizzan id</label>
 								<input type="text" class="form-control" name="pizzaId" />
@@ -160,10 +159,10 @@
 			     </form>
          </div>
          <div class="col-md-6"></div>
-            </div>
-	<div class="row">
+    </div><!-- row 2 -->
+	<div class="row pizza">
 	    <div class="col-md-6">
-	         <form action="PaivitaPizzaTietoServlet" method="post">
+	         <form action="updatepizza" method="post">
 						<legend>*Päivitä pizzan tiedot</legend>
 						<div class="form-group">
 							<label>Kumppi tieto haluat päivittää, valitse ala numero?</label>
@@ -185,7 +184,7 @@
 			</form>
 	    </div><!-- päivittä pizza -->
 	    <div class="col-md-6">
-	         			<form class="form" action="LisaaPizzaServlet" method="post">
+	         			<form class="form" action="newpizza" method="post">
 						<legend>*Lisää uusi pizza listaan</legend>
 						<div class="form-group">
 							<label>Pizza nimi</label> <input type="text" class="form-control"
@@ -207,29 +206,38 @@
 						</div>
 			 </form>
 	    </div><!-- Lisää uusi pizza  -->	
-	   </div>
+	   </div><!-- row 3 -->
 	</div><!-- container pizza -->
-</div><!-- pizza -->
+
 </body>
 <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
    $(function(event){
-	   $("#asiakas").hide();
-	   //$("#tilaus").hide();
-	   $("#pizza").hide();
+	   event.preventDefault();
 	   $( "#datepicker" ).datepicker({
 		 "dateFormat": "yy-mm-dd" 
 	   });
 	   
-	   $(':input[name="action"]').on("click", function(){
-		   $("#tilaus").css({display: " "});
+	   $(':input[value="Nayta kaikki tilaukset"]').on("click", function(){
+		   $(".asiakas").css("display","none");
+		   $(".pizza").css("display","none");
+		   $(".tilaus").toggle();
+	   });
+	   $(':input[value="Nayta viisi lahintilausta"]').on("click", function(){
+		   $(".asiakas").css("display","none");
+		   $(".pizza").css("display","none");
+		   $(".tilaus").toggle();
 	   });
 	   $(':input[value="Näytä Asiakaslista"]').on("click", function(){
-		   $("#asiakas").css("display","");
+		   $(".pizza").css("display","none");
+		   $(".tilaus").css("display","none");
+		   $(".asiakas").toggle();
 	   });
 	   $(':input[value="Näytä Pizzalista"]').on("click", function(){
-		   $("#pizza").css("display","");
+		   $(".asiakas").css("display","none");
+		   $(".tilaus").css("display","none");
+		   $(".pizza").toggle();
 	   });
 	   
    })

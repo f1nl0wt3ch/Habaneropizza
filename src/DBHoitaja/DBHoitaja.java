@@ -25,12 +25,15 @@ public class DBHoitaja {
 	private Statement sta;
 	private ResultSet rs;
 
-	String driver = "com.mysql.jdbc.Driver";
+	/*String driver = "com.mysql.jdbc.Driver";
 	String user = "projekti";
 	String password = "123456";
-	String url = "jdbc:mysql://localhost:3306/projekti";
-
-	/**
+	String url = "jdbc:mysql://localhost:3306/projekti";*/
+	String user="sqrziclkcgwjkr";
+	String driver = "org.postgresql.Driver";
+	String url ="jdbc:postgresql://ec2-54-225-230-243.compute-1.amazonaws.com:5432/d6uvjq8retv19h?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+	String password="24c3cb733ba278f974bcde052b79b0e9a484ae8cbfa439eed63b9046ee245e27";
+    /**
 	 * Yhdistä tietokantaan, jos onnistuu palauttaa oikein, entä ei palauttaa
 	 * väärin.
 	 *
@@ -97,9 +100,9 @@ public class DBHoitaja {
 				lista.add(new Asiakas(asiakas_id, nimi, puhelinnumero,
 						spostiosoite));
 			}
-			Sulje(connectDatabase());
 		} catch (Exception e) {
 			System.out.print("error " + e);
+		} finally {
 			Sulje(connectDatabase());
 		}
 		return (ArrayList<Asiakas>) lista;
@@ -133,10 +136,10 @@ public class DBHoitaja {
 				lista.add(new Asiakas(asiakas_id, nimi, puhelinnumero,
 						spostiosoite));
 			}
-			Sulje(connectDatabase());
 
 		} catch (Exception e) {
 			System.out.print("error " + e);
+		} finally {
 			Sulje(connectDatabase());
 		}
 
@@ -172,9 +175,9 @@ public class DBHoitaja {
 				lista.add(new Pizza(pizza_id, pizzan_nimi, taytteet, hinta,
 						poistomerkitty));
 			}
-			Sulje(connectDatabase());
 		} catch (Exception e) {
 			System.out.print("error " + e);
+		} finally {
 			Sulje(connectDatabase());
 		}
 
@@ -209,9 +212,9 @@ public class DBHoitaja {
 				list.add(new HistoriaTilaus(tilausNo, maara, maksut, maksutapa,
 						spostiosoite, tilauspaiva));
 			}
-			Sulje(connectDatabase());
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
 			Sulje(connectDatabase());
 		}
 		return list;
@@ -247,9 +250,9 @@ public class DBHoitaja {
 				list.add(new HistoriaTilaus(tilausNo, maara, maksut, maksutapa,
 						spostiosoite, tilauspaiva));
 			}
-			Sulje(connectDatabase());
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
 			Sulje(connectDatabase());
 		}
 		return list;
@@ -273,11 +276,9 @@ public class DBHoitaja {
 			query = "insert into asiakkaat (nimi,spostiosoite,puhelinnumero) values ('"
 					+ nimi + "','" + email + "'," + puhelin + ")";
 			sta.executeUpdate(query);
-			Sulje(connectDatabase());
 		} catch (SQLException e) {
 			e.printStackTrace();
-			Sulje(connectDatabase());
-		}
+		} 
 		return true;
 
 	}
@@ -305,9 +306,9 @@ public class DBHoitaja {
 				+ poistomerkitty + "')";
 		try {
 			sta.executeUpdate(query);
-			Sulje(connectDatabase());
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
 			Sulje(connectDatabase());
 		}
 
@@ -327,9 +328,9 @@ public class DBHoitaja {
 		String query = "delete from asiakkaat where asiakas_id=" + asiakas_id;
 		try {
 			sta.executeUpdate(query);
-			Sulje(connectDatabase());
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
 			Sulje(connectDatabase());
 		}
 
@@ -349,9 +350,9 @@ public class DBHoitaja {
 		String query = "delete from pizzat where pizza_id=" + pizza_id;
 		try {
 			sta.executeUpdate(query);
-			Sulje(connectDatabase());
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
 			Sulje(connectDatabase());
 		}
 	}
@@ -366,22 +367,24 @@ public class DBHoitaja {
 	 *            , taulukko joisaa omistajan tunnus ja salasana
 	 * @return palautta merkkijono
 	 */
-	public String tarkistaTiedot(String tunnus, String table) {
-		String salasana = null;
-		String query = "select salasana from " + table + " where tunnus ='"
-				+ tunnus + "'";
+	public int tarkistaTiedot(String tunnus, String salasana) {
+		int lkm = 0;
+		String query = "select * from kayttajat where tunnus ='"+ tunnus + "' and salasana='"+salasana+"'";
 		try {
 			rs = sta.executeQuery(query);
 			while (rs.next()) {
-				salasana = rs.getString("salasana");
+				String pass = rs.getString("salasana");
+				String user = rs.getString("tunnus");
+				if(!pass.equals(null) || !user.equals(null))
+					lkm++;
 			}
-			Sulje(connectDatabase());
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
 			Sulje(connectDatabase());
 		}
 
-		return salasana;
+		return lkm;
 	}
 
 	/**
@@ -404,9 +407,9 @@ public class DBHoitaja {
 			while (rs.next()) {
 				salasana = rs.getString("salasana");
 			}
-			Sulje(connectDatabase());
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
 			Sulje(connectDatabase());
 		}
 
@@ -437,8 +440,9 @@ public class DBHoitaja {
 					+ "' where pizza_id= " + id;
 			try {
 				sta.executeUpdate(query);
-				Sulje(connectDatabase());
 			} catch (SQLException sql) {
+				sql.printStackTrace();
+			} finally {
 				Sulje(connectDatabase());
 			}
 			break;
@@ -448,8 +452,9 @@ public class DBHoitaja {
 					+ "' where pizza_id= " + id;
 			try {
 				sta.executeUpdate(query);
-				Sulje(connectDatabase());
 			} catch (SQLException sql) {
+				sql.printStackTrace();
+			} finally {
 				Sulje(connectDatabase());
 			}
 			break;
@@ -459,8 +464,9 @@ public class DBHoitaja {
 					+ "' where pizza_id= " + id;
 			try {
 				sta.executeUpdate(query);
-				Sulje(connectDatabase());
 			} catch (SQLException sql) {
+				sql.printStackTrace();
+			} finally {
 				Sulje(connectDatabase());
 			}
 			break;
@@ -470,8 +476,9 @@ public class DBHoitaja {
 					+ "' where pizza_id= " + id;
 			try {
 				sta.executeUpdate(query);
-				Sulje(connectDatabase());
 			} catch (SQLException sql) {
+				sql.printStackTrace();
+			} finally {
 				Sulje(connectDatabase());
 			}
 			break;
@@ -502,9 +509,9 @@ public class DBHoitaja {
 				edusta = rs.getString(sarake);
 				lista.add(edusta);
 			}
-			Sulje(connectDatabase());
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException sql) {
+			sql.printStackTrace();
+		} finally {
 			Sulje(connectDatabase());
 		}
 
@@ -529,9 +536,9 @@ public class DBHoitaja {
 			while (rs.next()) {
 				hinta = Double.parseDouble(rs.getString("hinta"));
 			}
-			Sulje(connectDatabase());
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
 			Sulje(connectDatabase());
 		}
 
@@ -564,11 +571,9 @@ public class DBHoitaja {
 				+ "','" + spostiosoite + "','" + tilauspaiva + "')";
 		try {
 			sta.executeUpdate(query);
-			Sulje(connectDatabase());
 		} catch (SQLException e) {
 			e.printStackTrace();
-			Sulje(connectDatabase());
-		}
+		} 
 		return true;
 	}
 
@@ -597,11 +602,9 @@ public class DBHoitaja {
 				asiakas = new Asiakas(asiakas_id, nimi, puhelinnumero,
 						spostiosoite);
 			}
-			Sulje(connectDatabase());
 		} catch (SQLException e) {
 			e.printStackTrace();
-			Sulje(connectDatabase());
-		}
+		} 
 		return asiakas;
 	}
 
@@ -633,9 +636,9 @@ public class DBHoitaja {
 				historia = (new HistoriaTilaus(syotetty_numero, maara, maksut,
 						maksutapa, spostiosoite, tilauspaiva));
 			}
-			Sulje(connectDatabase());
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
 			Sulje(connectDatabase());
 		}
 		return historia;
@@ -670,9 +673,9 @@ public class DBHoitaja {
 						maksutapa, syotetty_sposti, tilauspaiva));
 				lista.add(historia);
 			}
-			Sulje(connectDatabase());
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
 			Sulje(connectDatabase());
 		}
 		return lista;
@@ -709,10 +712,11 @@ public class DBHoitaja {
 				list.add(new HistoriaTilaus(tilausNo, maara, maksut, maksutapa,
 						spostiosoite, tilauspaiva));
 			}
-			Sulje(connectDatabase());
+			
 		} catch (SQLException e) {
 			System.out.print("error SQL " + e);
 			e.printStackTrace();
+		} finally {
 			Sulje(connectDatabase());
 		}
 		return list;
@@ -743,11 +747,9 @@ public class DBHoitaja {
 				+ vanhaarvo + "'";
 		try {
 			sta.executeUpdate(query);
-			Sulje(connectDatabase());
 		} catch (SQLException e) {
 			e.printStackTrace();
-			Sulje(connectDatabase());
-		}
+		} 
 	}
 
 }

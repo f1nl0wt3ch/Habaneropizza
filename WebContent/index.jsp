@@ -39,7 +39,7 @@
 	</nav>
 </div>	
 
-<form class="form" action="AikaPalveluServlet" method="get">
+<form class="form" action="invoice" method="get">
 	<div class="container">
 	    <div class="row">
 		    <div class="form-group col-md-12">
@@ -67,6 +67,7 @@
 	       <div class="form-group col-md-12">
 	            <div class="col-md-4"></div>
 	            <div class="col-md-4 text-center">
+	                 <input type="hidden" name="asiakasKello"/>
 	                 <input type="reset" class="btn btn-warning" value="Perutta" name="reset">
 				     <input type="submit" class="btn btn-success" value="Tilaa" name="submit">
 		        </div>
@@ -78,14 +79,24 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
 <script>
-  $( document ).ready(function(){
-	  $(':input[type="submit"]').prop('disabled', true);
-	  $(':input[type="number"]').on("click", function(){
-		 if($(this).val() != 0)
-		   $(':input[type="submit"]').prop("disabled",false);
-		 else
-		   $(':input[type="submit"]').prop('disabled', true);
-	 });
-  })
+	function otaAika(nyt) {
+		var kello = new Object();
+		var tuntiNyt = nyt.getHours();
+		var minuuttiNyt = nyt.getMinutes();
+		kello.tunti = tuntiNyt;
+		kello.minuutti = minuuttiNyt;
+		return kello.tunti+":"+kello.minuutti;
+	}
+	
+	$(document).ready(function() {
+		$(':input[type="hidden"]').val(otaAika(new Date()));
+		$(':input[type="submit"]').prop('disabled', true);
+		$(':input[type="number"]').on("click", function() {
+			if ($(this).val() != 0)
+				$(':input[type="submit"]').prop("disabled", false);
+			else
+				$(':input[type="submit"]').prop('disabled', true);
+		});
+	})
 </script>
 </html>

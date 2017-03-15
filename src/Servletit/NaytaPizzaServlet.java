@@ -15,7 +15,7 @@ import Luokat.Pizza;
 /**
  * Servlet implementation class NaytaPizzaServlet
  */
-@WebServlet("/NaytaPizzaServlet")
+@WebServlet("/pizzas")
 public class NaytaPizzaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
      ArrayList<Pizza> list;

@@ -22,37 +22,37 @@
 				<tr>
 					<td><b>Tilausaika</b></td>
 					<td><font color="red"><c:out
-								value="${sessionScope.tilausaikaStr }" /></font></td>
+								value="${requestScope.tilausaikaStr }" /></font></td>
 				</tr>
 
 				<tr>
 					<td><b>Tilausnumero</b></td>
 					<td><font color="red"><c:out
-								value="${sessionScope.kaikkitilaukset[i].tilausNo }" /></font></td>
+								value="${requestScope.kaikkitilaukset[i].tilausNo }" /></font></td>
 				</tr>
 
 				<tr>
 					<td width="60%"><b>Tilauspäivä</b></td>
 					<td><c:out
-							value="${sessionScope.kaikkitilaukset[i].tilauspaiva }" /></td>
+							value="${requestScope.kaikkitilaukset[i].tilauspaiva }" /></td>
 				</tr>
 
 				<tr>
 					<td><b>Määrä</b></td>
 					<td><c:out
-							value="${sessionScope.kaikkitilaukset[i].maara } kpl"></c:out></td>
+							value="${requestScope.kaikkitilaukset[i].maara } kpl"></c:out></td>
 				</tr>
 
 				<tr>
 					<td><b>Yhteensä</b></td>
 					<td><c:out
-							value="${sessionScope.kaikkitilaukset[i].maksut } €"></c:out></td>
+							value="${requestScope.kaikkitilaukset[i].maksut } €"></c:out></td>
 				</tr>
 
 				<tr>
 					<td><b>Maksutapa</b></td>
 					<td><c:out
-							value="${sessionScope.kaikkitilaukset[i].maksutapa }" /></td>
+							value="${requestScope.kaikkitilaukset[i].maksutapa }" /></td>
 				</tr>
 				<br>
 				<br>
@@ -61,4 +61,25 @@
 		</c:forEach>
 	</div>
 </body>
+<script>
+  $(function(){
+    $("form[action='orderstatus']").validate({
+    	   rules: {
+    		   keyword: {
+    			   required: true,
+        		   minlength: 6
+    		   } 
+    	   },
+    	   messages: {
+    		   keyword: {
+    			   required: "Kentässä ei saa olla tyhja",
+    			   minlength: "Hakusanan pituus on vahintaan 6 merkkejä"
+    		   }
+    	   },
+    	   submitHandler: function(form){
+    		   form.submit();
+    	   }
+    });
+  });
+</script>
 </html>

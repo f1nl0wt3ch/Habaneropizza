@@ -30,10 +30,10 @@ fieldset.orderstatus {
 		<h2>Pizzoja saatavilla klo 10-23</h2>
 		<h3>Malmin parhaat pizzat</h3>
 		<h4>Soita 050-654-3210 ja nouda pizza paikan päältä</h4>
-		<a class="btn btn-primary" href="KotiSivuServlet">Home</a>
+		<a class="btn btn-primary" href="/index">Home</a>
 </div>
 <div class="container">
-   <form class="form" action="TilausTilanneServlet" method="post">
+   <form class="form" action="orderstatus" method="post">
        <fieldset class="orderstatus">
             <legend><h1>Tilaus tilanne</h1></legend>
             <div class="form-group">
@@ -50,6 +50,27 @@ fieldset.orderstatus {
         </fieldset>
 </form>
 </div>
-
 </body>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+<script>
+  $(function(){
+    $("form[action='orderstatus']").validate({
+    	   rules: {
+    		   keyword: {
+    			   required: true,
+        		   minlength: 6
+    		   } 
+    	   },
+    	   messages: {
+    		   keyword: {
+    			   required: "Kentässä ei saa olla tyhja",
+    			   minlength: "Hakusanan pituus on vahintaan 6 merkkejä"
+    		   }
+    	   },
+    	   submitHandler: function(form){
+    		   form.submit();
+    	   }
+    });
+  });
+</script>
 </html>

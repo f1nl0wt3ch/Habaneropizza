@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class LahettaSpostiServlet
  */
-@WebServlet("/LahettaSpostiServlet")
+@WebServlet("/contact")
 public class LahettaSpostiServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

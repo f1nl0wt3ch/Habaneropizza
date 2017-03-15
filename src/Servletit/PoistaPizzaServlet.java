@@ -13,7 +13,7 @@ import DBHoitaja.DBHoitaja;
 /**
  * Servlet implementation class PoistaPizzaServlet
  */
-@WebServlet("/PoistaPizzaServlet")
+@WebServlet("/deletepizza")
 public class PoistaPizzaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DBHoitaja dbh;

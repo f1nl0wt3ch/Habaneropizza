@@ -20,7 +20,7 @@
 		<table class="table">
 			<tr>
 				<td><b>Tilausaika</b></td>
-				<td><font color="red">${sessionScope.tilausaikaStr }</font></td>
+				<td><font color="red">${requestScope.tilausaikaStr }</font></td>
 			</tr>
 
 			<tr>
@@ -58,4 +58,25 @@
 		</table>
 	</div>
 </body>
+<script>
+  $(function(){
+    $("form[action='orderstatus']").validate({
+    	   rules: {
+    		   keyword: {
+    			   required: true,
+        		   minlength: 6
+    		   } 
+    	   },
+    	   messages: {
+    		   keyword: {
+    			   required: "Kentässä ei saa olla tyhja",
+    			   minlength: "Hakusanan pituus on vahintaan 6 merkkejä"
+    		   }
+    	   },
+    	   submitHandler: function(form){
+    		   form.submit();
+    	   }
+    });
+  });
+</script>
 </html>

@@ -2,12 +2,8 @@ package Servletit;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,14 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import DBHoitaja.DBHoitaja;
-import Luokat.*;
+import Luokat.Pizza;
+import Luokat.Tilaukset;
 
 
 
 /**
  * Servlet implementation class AikaPalveluServlet
  */
-@WebServlet("/AikaPalveluServlet")
+@WebServlet("/invoice")
 public class AikaPalveluServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	List<Pizza> list;
@@ -175,12 +172,17 @@ public class AikaPalveluServlet extends HttpServlet {
 	private boolean tarkistaaTilausAika(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		boolean tosi = true;
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		/*SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 		Date kelo = new Date();
 		String aika = sdf.format(kelo);
 		int tunti = Integer.parseInt(aika.substring(0,2));
-		int minuutti = Integer.parseInt(aika.substring(3,5));
+		int minuutti = Integer.parseInt(aika.substring(3,5));*/
+		String aika = request.getParameter("asiakasKello");
 		
+		System.out.println("Aika "+ aika);
+		System.out.println("Aika "+ aika.split(":")[0]);
+		int tunti = Integer.parseInt(aika.split(":")[0]);
+		int minuutti = Integer.parseInt(aika.split(":")[1]);
 		if (10 <= tunti && tunti < 23) {
 			return tosi;
 			}
@@ -191,8 +193,5 @@ public class AikaPalveluServlet extends HttpServlet {
 			return !tosi;
 		}
 	}
-
-	
-	
 
 }

@@ -16,7 +16,7 @@ import Luokat.Asiakas;
 /**
  * Servlet implementation class PoistaAsiakasServlet
  */
-@WebServlet("/PoistaAsiakasServlet")
+@WebServlet("/deletecustomer")
 public class PoistaAsiakasServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     DBHoitaja dbh; 

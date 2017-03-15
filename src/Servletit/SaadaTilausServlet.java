@@ -20,7 +20,7 @@ import Luokat.HistoriaTilaus;
 /**
  * Servlet implementation class SaadaTilausServlet
  */
-@WebServlet("/SaadaTilausServlet")
+@WebServlet("/thankyou")
 public class SaadaTilausServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     DBHoitaja dbh;
@@ -116,11 +116,7 @@ public class SaadaTilausServlet extends HttpServlet {
 		"\n"+"\n"+
 		"\nMalminkaari 15"+ 
 		"\n00700 Helsinki"+"\n050-654-3210";
-		
-		if (puhelinnumeroStr == null || spostiosoite == null || nimi == null)
-	    	request.getRequestDispatcher("errorNull.jsp").forward(request, response); 	
-		else if (puhelinnumeroStr.matches(REGEX_PUHNUMERO) && spostiosoite.matches(REGEX_EMAIL) && nimi.matches(REGEX_NIMI)) 
-    	{
+	
     		if(dbh.connectDatabase()!= null) {
 				 int puhelinnumero = Integer.parseInt(puhelinnumeroStr);
 				 asiakas = new Asiakas(0, nimi,puhelinnumero, spostiosoite);
@@ -128,29 +124,20 @@ public class SaadaTilausServlet extends HttpServlet {
 				           if( dbh.tarkistaAsiakas(spostiosoite) == null) {
 				        	   dbh.lisaaAsiakkaat(asiakas);
 			    	           dbh.tallentaTilausTietokantaan(historia);
+			    	           if(lss.sendMail(spostiosoite, subject, message, request, response))
+			    	   			request.getRequestDispatcher("sucess.jsp").forward(request, response); 
 				        	     }
 				           else {
 				        	   dbh.paivitaPuhelinnumero("puhelinnumero","spostiosoite","asiakkaat", puhelinnumeroStr, spostiosoite);
 				        	   dbh.tallentaTilausTietokantaan(historia);
+				        	   if(lss.sendMail(spostiosoite, subject, message, request, response))
+				       			request.getRequestDispatcher("sucess.jsp").forward(request, response); 
 				    	         
 				      }
 				 
 					 }
          
-            if(lss.sendMail(spostiosoite, subject, message, request, response))
-			request.getRequestDispatcher("sucess.jsp").forward(request, response); 
          
     	} 
-	    
-	    else if (!nimi.matches(REGEX_NIMI)) 
-	    	request.getRequestDispatcher("errorName.jsp").forward(request, response); 
-	    else if(!puhelinnumeroStr.matches(REGEX_PUHNUMERO))
-	        request.getRequestDispatcher("errorPhone.jsp").forward(request, response); 	
-	    else if(!spostiosoite.matches(REGEX_EMAIL))
-	    	request.getRequestDispatcher("errorEmail.jsp").forward(request, response); 	
-	    
-	    
-	    	}
-
 
 }

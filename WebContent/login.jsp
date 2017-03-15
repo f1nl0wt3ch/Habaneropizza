@@ -16,7 +16,7 @@
 		<h2>Pizzoja saatavilla klo 10-23</h2>
 		<h3>Malmin parhaat pizzat</h3>
 		<h4>Soita 050-654-3210 ja nouda pizza paikan päältä</h4>
-		<a class="btn btn-primary" href="KotiSivuServlet">Home</a>
+		<a class="btn btn-primary" href="/index">Home</a>
 </div>
 <div class="container">
    <div class="row">
@@ -26,14 +26,14 @@
             <p>Tunnus on  <b>admin</b></p>
             <p>Salasana on <b>admin123</b> </p>
        </div>
-       <div class="col-md-12 text-center" style="background:">
-            <form class="form" action="KirjauduSisaanServlet" method="post">
+       <div class="col-md-12 text-center">
+            <form class="form" action="login" method="post">
                 <div class="form-group col-md-12">
                     <div class="col-md-4">
                         <label>Käyttäjätunnus</label>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" class="form-control" value="" name="username">
+                        <input type="text" class="form-control" name="username">
                     </div>
                 </div>
                 <div class="form-group col-md-12">
@@ -41,7 +41,7 @@
                         <label>Salasana</label>
                     </div>
                      <div class="col-md-8">
-                        <input type="password" class="form-control" value="" name="password">
+                        <input type="password" class="form-control" name="password">
                     </div>
                 </div>
                 <div class="form-group col-md-12">

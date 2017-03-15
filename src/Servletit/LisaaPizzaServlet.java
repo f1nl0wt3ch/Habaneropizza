@@ -17,7 +17,7 @@ import Luokat.Pizza;
 /**
  * Servlet implementation class LisaaPizzaServlet
  */
-@WebServlet("/LisaaPizzaServlet")
+@WebServlet("/newpizza")
 public class LisaaPizzaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
      DBHoitaja dbh; 
