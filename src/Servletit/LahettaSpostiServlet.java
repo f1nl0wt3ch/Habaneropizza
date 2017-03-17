@@ -52,22 +52,22 @@ public class LahettaSpostiServlet extends HttpServlet {
 	}
 	
 	/**
-	 * Saadaan palaute asiakkaalta palautelomakkeen kautta. Tulee ilmoitus kun palaute on lähetetty tai ei ole vielä.
+	 * Saadaan palaute asiakkaalta palautelomakkeen kautta. Tulee ilmoitus kun palaute on lï¿½hetetty tai ei ole vielï¿½.
 	 * @see receiveMail
-	 * @param sender lähettäjän sähköposti, otetaan palautelomakkeesta.
-	 * @param subject sähköpostin aihe.
-	 * @param message sähköpostin viesti.
+	 * @param sender lï¿½hettï¿½jï¿½n sï¿½hkï¿½posti, otetaan palautelomakkeesta.
+	 * @param subject sï¿½hkï¿½postin aihe.
+	 * @param message sï¿½hkï¿½postin viesti.
 	 * @param HttpServletRequest request
 	 * @param HttpServletResponse response
 	 * @throws ServletException
 	 * @throws IOException
-	 * @return ei palautaa mitään
+	 * @return ei palautaa mitï¿½ï¿½n
 	 */
 	public void receiveMail(String sender, String subject, String message, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		final String username ="habanero";
-		final String password ="178987VI";
-		String destination ="habanero.pizzarien@gmail.com";
-		String host = "relay.jangosmtp.net";
+		final String username ="your username";
+		final String password ="your password";
+		String destination ="your email";
+		String host = "your smtp host";
 		Properties pros = new Properties();
 		pros.put("mail.smtp.auth", "true");
 		pros.put("mail.smtp.starttls.enable","true");
@@ -101,20 +101,20 @@ public class LahettaSpostiServlet extends HttpServlet {
 	
 	
 	/**
-	 * Lähetä vahvistus viesti asiakkaalle sähköpostin kautta kun tilaus on valmis.
+	 * Lï¿½hetï¿½ vahvistus viesti asiakkaalle sï¿½hkï¿½postin kautta kun tilaus on valmis.
 	 * @see sendMail
-	 * @param to_email saajan sähköposti
-	 * @param subject sähköpostin aihe
+	 * @param to_email saajan sï¿½hkï¿½posti
+	 * @param subject sï¿½hkï¿½postin aihe
 	 * @param message viesti
 	 * @param HttpServletRequest request
 	 * @param HttpServletResponse response
 	 * @throws ServletException
 	 * @throws IOException
-	 * @return palautaa oikein tai väärin
+	 * @return palautaa oikein tai vï¿½ï¿½rin
 	 */
 	public boolean sendMail(String to_email, String subject, String message, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		String username ="habanero.pizzarien@gmail.com";
-		String password ="123hgfds";
+		String username ="your gmail account";
+		String password ="your pass";
 		String host = "smtp.gmail.com";
 		String port = "465";
 		Properties pros = new Properties();
