@@ -34,7 +34,7 @@ public class DBHoitaja {
 	String driver = "org.postgresql.Driver";
 	String user = "sqrziclkcgwjkr";
 	String password = "24c3cb733ba278f974bcde052b79b0e9a484ae8cbfa439eed63b9046ee245e27";
-	String url = "jdbc:postgres://ec2-54-225-230-243.compute-1.amazonaws.com:5432/d6uvjq8retv19h";
+	String url = "jdbc:postgresql://ec2-54-225-230-243.compute-1.amazonaws.com:5432/d6uvjq8retv19h?sslmode=require";
 	
 	
 	 /**
