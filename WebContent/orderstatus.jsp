@@ -41,7 +41,8 @@ fieldset.orderstatus {
                     <label>Tarkistetaan tilanne tilausnumerolla tai sähköpostilla:</label>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" class="form-control" placeholder="Syötä tilausnumero tai sähköposti" name="keyword"> 
+                    <input type="text" class="form-control" placeholder="Syötä tilausnumero tai sähköposti" name="keyword">
+                    <p>Voit käyttää testidata: 803097 tai babyface1m75@yahoo.com.vn</p> 
                 </div>
                 <div class="col-md-4">
                     <input type="submit" class="btn btn-default" value="Tarkista">

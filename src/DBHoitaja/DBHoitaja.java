@@ -25,10 +25,18 @@ public class DBHoitaja {
 	private Statement sta;
 	private ResultSet rs;
 
-	String driver = "com.mysql.jdbc.Driver";
+	/*String driver = "com.mysql.jdbc.Driver";
 	String user = "projekti";
 	String password = "123456";
-	String url = "jdbc:mysql://localhost:3306/projekti";
+	String url = "jdbc:mysql://localhost:3306/projekti";*/
+	
+	/*Tuotanto Database*/
+	String driver = "org.postgresql.Driver";
+	String user = "sqrziclkcgwjkr";
+	String password = "24c3cb733ba278f974bcde052b79b0e9a484ae8cbfa439eed63b9046ee245e27";
+	String url = "jdbc:postgres://ec2-54-225-230-243.compute-1.amazonaws.com:5432/d6uvjq8retv19h";
+	
+	
 	 /**
 	 * Yhdistä tietokantaan, jos onnistuu palauttaa oikein, entä ei palauttaa
 	 * väärin.

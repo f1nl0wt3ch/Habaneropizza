@@ -62,7 +62,7 @@ public class Pizza {
 	public void setPoistomerkitty(Date poistomerkitty) {
 		this.poistomerkitty = (java.sql.Date) poistomerkitty;
 	}
-	@Override
+
 	public String toString() {
 		return  pizzan_nimi+" "+taytteet +" "+ hinta+"\n";
 				

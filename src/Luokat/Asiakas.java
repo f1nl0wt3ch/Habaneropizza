@@ -53,8 +53,6 @@ public class Asiakas {
 		this.spostiosoite = spostiosoite;
 	}
 	
-	
-	@Override
 	public String toString() {
 		return "Asiakas [asiakas_id=" + asiakas_id + ", nimi=" + nimi
 				+ ", puhelinnumero=" + puhelinnumero + ", spostiosoite="

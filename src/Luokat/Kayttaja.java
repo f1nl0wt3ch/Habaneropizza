@@ -39,7 +39,6 @@ public class Kayttaja {
 		this.salasana = salasana;
 	}
 	
-	@Override
 	public String toString() {
 		return "kayttaja [kayttaja_id=" + kayttaja_id + ", tunnus=" + tunnus
 				+ ", salasana=" + salasana + "]";

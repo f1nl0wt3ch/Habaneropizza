@@ -69,7 +69,7 @@ public class HistoriaTilaus {
 	public void setTilauspaiva(Date tilauspaiva) {
 		this.tilauspaiva = tilauspaiva;
 	}
-	@Override
+	
 	public String toString() {
 		return "HistoraTilaus [tilausNo=" + tilausNo + ", maara=" + maara
 				+ ", maksut=" + maksut + ", maksutapa=" + maksutapa
